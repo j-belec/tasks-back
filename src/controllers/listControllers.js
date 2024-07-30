@@ -36,7 +36,7 @@ const listControllers = {
     try {
       const { id_user } = req.body;
 
-      console.log(id_user);
+      // console.log(id_user);
 
       const listsDB = await List.findAll({
         where: { user_id: id_user },
@@ -45,8 +45,6 @@ const listControllers = {
       const lists = listsDB.map((list) => {
         return list.dataValues;
       });
-
-      // console.log(lists);
 
       res.status(200).json(lists);
     } catch (error) {
@@ -63,10 +61,29 @@ const listControllers = {
         user_id: data.userId,
         name: data.taskName,
         description: data.taskDescription,
+        status: data.taskStatus,
+        priority: data.taskPriority,
       });
+
+      // console.log(Number(task.dataValues.priority) + 1);
+
+      const list = await List.findByPk(data.listId);
+
+      switch (data.taskStatus) {
+        case "1":
+          await list.increment("open_tasks");
+          break;
+        case "2":
+          await list.increment("inprogress_tasks");
+          break;
+        case "3":
+          await list.increment("completed_tasks");
+          break;
+      }
 
       res.status(200).json({ messagge: "ok" });
     } catch (error) {
+      console.log(error);
       res.status(500).json({ error: error });
     }
   },
@@ -80,7 +97,7 @@ const listControllers = {
         list_id: listId,
       },
     });
-    console.log(taskDB);
+    // console.log(taskDB);
     const task = taskDB.dataValues;
 
     res.status(200).json(task);

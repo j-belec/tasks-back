@@ -30,6 +30,12 @@ const Task = sequelize.define(
     status: {
       type: DataTypes.INTEGER,
       defaultValue: 1,
+      allowNull: false,
+    },
+    priority: {
+      type: DataTypes.INTEGER,
+      defaultValue: 1,
+      allowNull: false,
     },
   },
   {

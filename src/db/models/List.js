@@ -24,6 +24,21 @@ const List = sequelize.define(
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    open_tasks: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    inprogress_tasks: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
+    completed_tasks: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      defaultValue: 0,
+    },
   },
   {
     tableName: "lists",
