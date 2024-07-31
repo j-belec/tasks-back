@@ -48,6 +48,22 @@ const listControllers = {
 
       res.status(200).json(lists);
     } catch (error) {
+      res.status(500).json({ error: "Failed to get all lists" });
+    }
+  },
+
+  deleteList: async (req, res) => {
+    try {
+      const { listId } = req.body;
+
+      const list = await List.findByPk(listId);
+
+      await Task.destroy({ where: { list_id: listId } });
+
+      await list.destroy();
+
+      res.status(500).json({ message: "ok" });
+    } catch (error) {
       res.status(500).json({ error: error });
     }
   },
