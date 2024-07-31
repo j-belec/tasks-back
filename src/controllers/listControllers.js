@@ -120,6 +120,25 @@ const listControllers = {
 
     res.status(200).json(tasks);
   },
+
+  delteTask: async (req, res) => {
+    try {
+      const data = req.body;
+
+      const task = await Task.findOne({
+        where: {
+          id: data.taskId,
+          list_id: data.listId,
+        },
+      });
+
+      await task.destroy();
+
+      res.status(200).json({ message: "ok" });
+    } catch (error) {
+      res.status(500).json({ error: error });
+    }
+  },
 };
 
 export default listControllers;

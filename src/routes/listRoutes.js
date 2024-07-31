@@ -9,5 +9,6 @@ router.post("/get-all-lists", listControllers.getAllLists);
 router.post("/create-task", listControllers.createTask);
 router.post("/get-task", listControllers.getTask);
 router.post("/get-list-tasks", listControllers.getListTasks);
+router.delete("/delete-task", listControllers.delteTask);
 
 export default router;
